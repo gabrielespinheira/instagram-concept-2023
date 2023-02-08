@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: env_mysql
+    image: mysql:8.0.26
+    platform: linux/x86_64
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+    volumes:
+      - mysql_db_data:/var/lib/mysql
+
+  node:
+    container_name: env_node
+    image: node:19-alpine
+    platform: linux/x86_64
+    ports:
+      - 3000:3000
+    entrypoint: ["tail", "-f", "/dev/null"]
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    working_dir: /app
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_db_data:
