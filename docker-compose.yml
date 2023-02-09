@@ -17,21 +17,21 @@ services:
     volumes:
       - mysql_db_data:/var/lib/mysql
 
-  node:
-    container_name: env_node
-    image: node:19-alpine
-    platform: linux/x86_64
-    ports:
-      - 3000:3000
-    entrypoint: ["tail", "-f", "/dev/null"]
-    restart: unless-stopped
-    volumes:
-      - .:/app
-    working_dir: /app
-    links:
-      - mysql
-    depends_on:
-      - mysql
+  # node:
+  #   container_name: env_node
+  #   image: node:19-alpine
+  #   platform: linux/x86_64
+  #   ports:
+  #     - 3000:3000
+  #   entrypoint: ["tail", "-f", "/dev/null"]
+  #   restart: unless-stopped
+  #   volumes:
+  #     - .:/app
+  #   working_dir: /app
+  #   links:
+  #     - mysql
+  #   depends_on:
+  #     - mysql
 
 volumes:
   mysql_db_data:
