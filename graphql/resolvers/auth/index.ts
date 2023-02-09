@@ -42,7 +42,7 @@ async function login(_parent, args, context: Context) {
 }
 
 async function register(_parent, args, context: Context) {
-  const { email, password, name, username } = args
+  const { email, password, name, username, avatar } = args
 
   const userExists = await context.prisma.user.findFirst({
     where: {
@@ -62,6 +62,7 @@ async function register(_parent, args, context: Context) {
       password: hashedPassword,
       name,
       username,
+      avatar,
     },
   })
 

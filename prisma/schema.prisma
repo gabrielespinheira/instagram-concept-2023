@@ -13,7 +13,35 @@ model User {
   password  String
   name      String?
   username  String?   @unique
+  avatar    String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
+}
+
+model Post {
+  id        String    @id @unique @default(uuid())
+  text      String
+  url       String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  tags TagsOnPosts[]
+}
+
+model Tag {
+  id        String        @id @unique @default(uuid())
+  name      String
+  createdAt DateTime      @default(now())
+  posts     TagsOnPosts[]
+}
+
+model TagsOnPosts {
+  post   Post   @relation(fields: [postId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id])
+  postId String
+  tagId  String
+
+  @@id([postId, tagId])
 }
