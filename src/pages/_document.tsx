@@ -12,7 +12,9 @@ export default function Document() {
           content="black-translucent"
         />
       </Head>
-      <body className={`${fontFamily.variable} font-sans`}>
+      <body
+        className={`${fontFamily.variable} font-sans bg-slate-900 text-gray-100`}
+      >
         <Main />
         <NextScript />
       </body>

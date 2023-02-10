@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* h-full */
+html, body, #__next, main {
+  @apply h-full;
+}
+
+/* container */
+.container {
+  @apply flex w-full max-w-7xl py-8 px-4 mx-auto;
+}
+
+/* Gradient */
+.gradient {
+  @apply relative bg-gradient-to-r from-[#FB4AA1] via-[#F76A61] to-[#EE6247];
+}
+
+.shadow-gradient {
+  @apply relative after:content-[''] after:left-4 after:right-4 after:bottom-[-4px] after:top-6 after:w-auto after:h-auto after:absolute after:bg-gradient-to-r after:from-[#FB4AA1] after:via-[#F76A61] after:to-[#EE6247] after:blur-lg after:-z-10;
+}
+
+.gradient-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-[#F76A61] focus:ring-offset-2;
+}
+
+/* Buttons */
+.btn,
+.btn-sm {
+  @apply font-medium inline-flex items-center justify-center border border-transparent rounded leading-snug transition duration-150 ease-in-out;
+}
+
+.btn {
+  @apply px-8 py-3 shadow-lg;
+}
+
+.btn-sm {
+  @apply px-4 py-2 shadow;
+}
+
+/* Inputs */
+.input {
+  @apply relative block w-full appearance-none px-3 py-3 text-sm rounded-sm border bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
+}
