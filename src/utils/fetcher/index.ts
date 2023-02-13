@@ -45,7 +45,7 @@ const fetcher = async (query: string, variables?: any, options?: any) => {
       }
     }
 
-    return { error: { message: errorMessage } }
+    throw error
   }
 }
 

@@ -23,6 +23,7 @@
     "graphql-request": "^5.1.0",
     "graphql-scalars": "^1.20.1",
     "jose": "^4.11.4",
+    "jotai": "^2.0.1",
     "jsonwebtoken": "^9.0.0",
     "micro": "^10.0.1",
     "micro-cors": "^0.1.1",

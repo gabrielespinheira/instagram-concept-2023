@@ -2,12 +2,19 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { Context } from 'graphql/context'
+import { LoginSchema, RegisterSchema } from 'graphql/schemas'
 
 async function login(_parent, args, context: Context) {
   const { email, password } = args
 
   if (!email || !password) {
     throw new Error('Credentials not found')
+  }
+
+  try {
+    LoginSchema.parse({ email, password })
+  } catch (error: any) {
+    throw new Error(error.errors[0].path[0] + ' - ' + error.errors[0].message)
   }
 
   const user = await context.prisma.user.findFirst({
@@ -42,27 +49,40 @@ async function login(_parent, args, context: Context) {
 }
 
 async function register(_parent, args, context: Context) {
-  const { email, password, name, username, avatar } = args
+  const { email, password, name, username } = args
 
-  const userExists = await context.prisma.user.findFirst({
+  try {
+    RegisterSchema.parse({ email, name, username, password })
+  } catch (error: any) {
+    throw new Error(error.errors[0].path[0] + ' - ' + error.errors[0].message)
+  }
+
+  const emailExists = await context.prisma.user.findFirst({
     where: {
       email,
     },
   })
 
-  if (userExists) {
-    throw new Error('User already exists')
+  if (emailExists) {
+    throw new Error('Email already exists')
   }
 
-  const hashedPassword = bcrypt.hashSync(password, 8)
+  const usernameExists = await context.prisma.user.findFirst({
+    where: {
+      username,
+    },
+  })
+
+  if (usernameExists) {
+    throw new Error('Username already exists')
+  }
 
   const user = await context.prisma.user.create({
     data: {
       email,
-      password: hashedPassword,
+      password: bcrypt.hashSync(password, 8),
       name,
       username,
-      avatar,
     },
   })
 
