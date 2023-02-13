@@ -5,4 +5,9 @@ import Logo from './ions/Logo'
 import Header from './molecules/Header'
 import Footer from './molecules/Footer'
 
-export { Logo, Header, Footer }
+// Organisms
+
+// Templates
+import BasicTemplate from './templates/BasicTemplate'
+
+export { Logo, Header, Footer, BasicTemplate }

@@ -45,7 +45,15 @@ html, body, #__next, main {
 
 /* Inputs */
 .input {
-  @apply relative block w-full appearance-none px-3 py-3 text-sm rounded-sm border bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
+  @apply relative block w-full appearance-none p-3 text-sm rounded-sm border bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
+}
+
+.input-after {
+  @apply relative block w-full appearance-none p-3 text-sm rounded-sm rounded-r-none border border-r-0 bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:outline-none;
+}
+
+.input-after-span {
+  @apply appearance-none p-3 text-sm rounded-sm rounded-l-none border border-l-0 bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:outline-none;
 }
 
 input:-webkit-autofill,

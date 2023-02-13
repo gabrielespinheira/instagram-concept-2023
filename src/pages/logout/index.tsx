@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { FiLoader } from 'react-icons/fi'
 
 import { useAtom, sessionAtom } from 'src/atoms'
+import { BasicTemplate } from 'src/components'
 
 const Logout = () => {
   const [_, setSession] = useAtom(sessionAtom)
@@ -19,12 +20,12 @@ const Logout = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <BasicTemplate>
       <FiLoader
         className="h-8 w-8 text-white animate-spin"
         aria-hidden="true"
       />
-    </div>
+    </BasicTemplate>
   )
 }
 

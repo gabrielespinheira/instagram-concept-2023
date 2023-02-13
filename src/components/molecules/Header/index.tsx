@@ -1,10 +1,20 @@
 import Link from 'next/link'
-import { FiGithub, FiFigma } from 'react-icons/fi'
+import {
+  FiGithub,
+  FiFigma,
+  FiLogOut,
+  FiUser,
+  FiSearch,
+  FiHome,
+} from 'react-icons/fi'
 import { SiNotion } from 'react-icons/si'
 
+import { useAtom, sessionAtom } from 'src/atoms'
 import { Logo } from 'src/components'
 
 const Header = () => {
+  const [session, setSession] = useAtom(sessionAtom)
+
   return (
     <header className="container justify-between">
       <div className="flex flex-row items-center">
@@ -18,29 +28,70 @@ const Header = () => {
       </div>
 
       <div className="flex flex-row gap-4">
-        <Link
-          href=""
-          target="_blank"
-          className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
-        >
-          <SiNotion size={24} />
-        </Link>
+        {!session?.signed && (
+          <>
+            <Link
+              href=""
+              target="_blank"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <SiNotion size={24} />
+            </Link>
 
-        <Link
-          href=""
-          target="_blank"
-          className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
-        >
-          <FiFigma size={24} />
-        </Link>
+            <Link
+              href=""
+              target="_blank"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiFigma size={24} />
+            </Link>
 
-        <Link
-          href="https://github.com/gabrielespinheira/instagram-concept-2023"
-          target="_blank"
-          className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
-        >
-          <FiGithub size={24} />
-        </Link>
+            <Link
+              href="https://github.com/gabrielespinheira/instagram-concept-2023"
+              target="_blank"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiGithub size={24} />
+            </Link>
+          </>
+        )}
+
+        {session?.signed && (
+          <>
+            <div className="group flex rounded-md shadow-sm">
+              <input
+                type="text"
+                name="search"
+                className="input-after group-hover:border-gray-400 !py-1"
+                placeholder="Search"
+              />
+              <button className="input-after-span cursor-pointer inline-flex items-center rounded-sm group-hover:border-gray-400 !py-1">
+                <FiSearch size={18} />
+              </button>
+            </div>
+
+            <Link
+              href="/feed"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiHome size={24} />
+            </Link>
+
+            <Link
+              href="/profile"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiUser size={24} />
+            </Link>
+
+            <Link
+              href="/logout"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiLogOut size={24} />
+            </Link>
+          </>
+        )}
       </div>
     </header>
   )
