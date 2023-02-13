@@ -5,7 +5,7 @@ import {
   FiLogOut,
   FiUser,
   FiSearch,
-  FiHome,
+  FiCompass,
 } from 'react-icons/fi'
 import { SiNotion } from 'react-icons/si'
 
@@ -13,7 +13,7 @@ import { useAtom, sessionAtom } from 'src/atoms'
 import { Logo } from 'src/components'
 
 const Header = () => {
-  const [session, setSession] = useAtom(sessionAtom)
+  const [session, _] = useAtom(sessionAtom)
 
   return (
     <header className="container justify-between">
@@ -58,6 +58,13 @@ const Header = () => {
 
         {session?.signed && (
           <>
+            <Link
+              href="/feed"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiCompass size={24} />
+            </Link>
+
             <div className="group flex rounded-md shadow-sm">
               <input
                 type="text"
@@ -69,13 +76,6 @@ const Header = () => {
                 <FiSearch size={18} />
               </button>
             </div>
-
-            <Link
-              href="/feed"
-              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
-            >
-              <FiHome size={24} />
-            </Link>
 
             <Link
               href="/profile"
