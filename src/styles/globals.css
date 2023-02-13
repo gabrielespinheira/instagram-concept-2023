@@ -47,3 +47,11 @@ html, body, #__next, main {
 .input {
   @apply relative block w-full appearance-none px-3 py-3 text-sm rounded-sm border bg-slate-800 border-slate-600 text-gray-100 placeholder-slate-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgb(30 41 59 / var(--tw-bg-opacity)) inset !important;
+    -webkit-text-fill-color: #fff !important;
+}
