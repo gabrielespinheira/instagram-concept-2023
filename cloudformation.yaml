@@ -1,0 +1,8 @@
+# aws cloudformation create-stack --stack-name instagram-concept --template-body file:///$PWD/cloudformation.yaml
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: 'instagram-concept-s3-bucket'
