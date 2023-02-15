@@ -11,6 +11,7 @@ export default function Document() {
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
         />
+        <link rel="icon" type="image/x-icon" href="/instagram.svg" />
       </Head>
       <body
         className={`${fontFamily.variable} font-sans bg-slate-900 text-gray-100`}
