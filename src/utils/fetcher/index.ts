@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request'
-import Error from 'next/error'
 
 const fetcher = async (query: string, variables?: any, options?: any) => {
   try {

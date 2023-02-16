@@ -90,6 +90,8 @@ async function register(_parent, args, context: Context) {
     throw new Error('Could not possible to register user')
   }
 
+  // TODO: username already exists
+
   const token = jwt.sign(
     { sub: user.id, email },
     process.env.GUARD_SIGNATURE as string,

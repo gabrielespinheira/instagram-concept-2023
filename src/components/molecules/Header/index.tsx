@@ -6,6 +6,7 @@ import {
   FiUser,
   FiSearch,
   FiCompass,
+  FiUploadCloud,
 } from 'react-icons/fi'
 import { SiNotion } from 'react-icons/si'
 
@@ -63,6 +64,13 @@ const Header = () => {
               className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
             >
               <FiCompass size={24} />
+            </Link>
+
+            <Link
+              href="/upload"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiUploadCloud size={24} />
             </Link>
 
             <div className="group flex rounded-md shadow-sm">

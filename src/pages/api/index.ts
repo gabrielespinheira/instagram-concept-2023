@@ -5,7 +5,7 @@ type Data = {
 }
 
 function handler(_req: NextApiRequest, res: NextApiResponse<Data>) {
-  res.status(200).json({ status: true })
+  return res.status(200).json({ status: true })
 }
 
 export default handler

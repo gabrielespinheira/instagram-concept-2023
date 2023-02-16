@@ -12,36 +12,27 @@ model User {
   email     String    @unique
   password  String
   name      String?
-  username  String?   @unique
+  username  String    @unique
   avatar    String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
+  Post      Post[]
+
+  @@index([username])
+  @@map("user")
 }
 
 model Post {
   id        String    @id @unique @default(uuid())
   text      String
   url       String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  tags      Json?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
 
-  tags TagsOnPosts[]
-}
-
-model Tag {
-  id        String        @id @unique @default(uuid())
-  name      String
-  createdAt DateTime      @default(now())
-  posts     TagsOnPosts[]
-}
-
-model TagsOnPosts {
-  post   Post   @relation(fields: [postId], references: [id])
-  tag    Tag    @relation(fields: [tagId], references: [id])
-  postId String
-  tagId  String
-
-  @@id([postId, tagId])
+  @@map("post")
 }
