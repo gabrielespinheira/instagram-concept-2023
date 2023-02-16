@@ -1,8 +1,36 @@
 # aws cloudformation create-stack --stack-name instagram-concept --template-body file:///$PWD/cloudformation.yaml
 
+Parameters:
+  BucketName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+    Default: instagram-concept-s3-bucket
+
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
+      BucketName: !Ref BucketName
       AccessControl: PublicRead
-      BucketName: 'instagram-concept-s3-bucket'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
+  SampleBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref BucketName
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Principal: '*'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref BucketName
+                - /*
