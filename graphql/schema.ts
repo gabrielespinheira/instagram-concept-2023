@@ -15,6 +15,17 @@ export const typeDefs = gql`
     deletedAt: DateTime
   }
 
+  type Post {
+    id: UUID
+    text: String
+    url: String
+    userId: UUID
+    tags: [String]
+    createdAt: DateTime
+    updatedAt: DateTime
+    deletedAt: DateTime
+  }
+
   type Auth {
     user: User
     token: NonEmptyString
@@ -22,6 +33,7 @@ export const typeDefs = gql`
 
   type Query {
     profile: User
+    post(id: UUID): Post
   }
 
   type Mutation {
