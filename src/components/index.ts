@@ -6,8 +6,9 @@ import Header from './molecules/Header'
 import Footer from './molecules/Footer'
 
 // Organisms
+import Card from './organisms/Card'
 
 // Templates
 import BasicTemplate from './templates/BasicTemplate'
 
-export { Logo, Header, Footer, BasicTemplate }
+export { Logo, Header, Footer, Card, BasicTemplate }
