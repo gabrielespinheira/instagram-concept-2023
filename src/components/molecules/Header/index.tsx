@@ -19,7 +19,10 @@ const Header = () => {
   return (
     <header className="container justify-between">
       <div className="flex flex-row items-center">
-        <Link href="/" className="flex flex-row items-center">
+        <Link
+          href={session ? '/feed' : '/'}
+          className="flex flex-row items-center"
+        >
           <Logo type="logo" width={28} height={28} color="#f3f4f6" />
           <Logo type="name" width={120} height={28} color="#f3f4f6" />
         </Link>
@@ -86,7 +89,7 @@ const Header = () => {
             </div>
 
             <Link
-              href="/profile"
+              href={`/${session.user.username}`}
               className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
             >
               <FiUser size={24} />
