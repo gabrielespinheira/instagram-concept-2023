@@ -18,6 +18,8 @@ model User {
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
   Post      Post[]
+  followers Follow[]  @relation("following")
+  following Follow[]  @relation("follower")
 
   @@index([username])
   @@map("user")
@@ -35,4 +37,15 @@ model Post {
   deletedAt DateTime?
 
   @@map("post")
+}
+
+model Follow {
+  id          String   @id @unique @default(uuid())
+  follower    User     @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User     @relation("following", fields: [followingId], references: [id])
+  followingId String
+  createdAt   DateTime @default(now())
+
+  @@map("follow")
 }

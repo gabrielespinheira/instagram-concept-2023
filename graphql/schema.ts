@@ -26,6 +26,13 @@ export const typeDefs = gql`
     deletedAt: DateTime
   }
 
+  type Follow {
+    id: UUID
+    followerID: UUID
+    followingId: UUID
+    createdAt: DateTime
+  }
+
   type Auth {
     user: User
     token: NonEmptyString
@@ -44,5 +51,8 @@ export const typeDefs = gql`
       name: NonEmptyString
       username: NonEmptyString
     ): Auth
+    follow(followingId: UUID): Follow
+    unfollow(followingId: UUID): Boolean
+    isFollower(followingId: UUID): Boolean
   }
 `
