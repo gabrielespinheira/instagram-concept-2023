@@ -33,6 +33,13 @@ export const typeDefs = gql`
     createdAt: DateTime
   }
 
+  type Like {
+    id: UUID
+    postId: UUID
+    userID: UUID
+    createdAt: DateTime
+  }
+
   type Auth {
     user: User
     token: NonEmptyString
@@ -51,8 +58,13 @@ export const typeDefs = gql`
       name: NonEmptyString
       username: NonEmptyString
     ): Auth
+
     follow(followingId: UUID): Follow
     unfollow(followingId: UUID): Boolean
     isFollower(followingId: UUID): Boolean
+
+    like(postId: UUID): Like
+    unlike(postId: UUID): Boolean
+    hasLike(postId: UUID): Boolean
   }
 `

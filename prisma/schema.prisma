@@ -20,6 +20,7 @@ model User {
   Post      Post[]
   followers Follow[]  @relation("following")
   following Follow[]  @relation("follower")
+  Like      Like[]
 
   @@index([username])
   @@map("user")
@@ -35,6 +36,7 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
+  Like      Like[]
 
   @@map("post")
 }
@@ -48,4 +50,15 @@ model Follow {
   createdAt   DateTime @default(now())
 
   @@map("follow")
+}
+
+model Like {
+  id        String   @id @unique @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@map("like")
 }

@@ -2,9 +2,11 @@ import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { Inter as FontFamily } from '@next/font/google'
 import { SWRConfig } from 'swr'
+import { ToastContainer } from 'react-toastify'
 
 import { fetcher } from 'src/utils'
 import '../styles/globals.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const fontFamily = FontFamily({
   subsets: ['latin'],
@@ -38,6 +40,19 @@ function App({ Component, pageProps }: AppProps) {
       >
         <main className={`${fontFamily.variable} font-sans`}>
           <Component {...pageProps} />
+
+          <ToastContainer
+            position="bottom-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </main>
       </SWRConfig>
     </>

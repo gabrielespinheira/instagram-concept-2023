@@ -1,8 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { Post, User } from '@prisma/client'
-import { FiHeart, FiMessageCircle, FiShare } from 'react-icons/fi'
+import { FiHeart, FiShare } from 'react-icons/fi'
 import { gql } from 'graphql-request'
+import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react'
+import { fetcher } from 'src/utils'
+import { mutationHasLike, mutationLike, mutationUnlike } from 'graphql/sdk/like'
 
 const queryPost = gql`
   query Post($postId: UUID) {
@@ -28,6 +32,40 @@ const Card = ({
   className?: string
 }) => {
   const tags: string[] = (post.tags as string[]) || []
+  const [like, setLike] = useState(false)
+
+  useEffect(() => {
+    async function hasLike() {
+      const resp = await fetcher(mutationHasLike, {
+        postId: post.id,
+      })
+
+      setLike(resp.hasLike)
+    }
+
+    hasLike()
+  }, [])
+
+  async function handleLike() {
+    await fetcher(mutationLike, {
+      postId: post.id,
+    })
+
+    setLike(true)
+  }
+
+  async function handleUnlike() {
+    await fetcher(mutationUnlike, {
+      postId: post.id,
+    })
+
+    setLike(false)
+  }
+
+  async function handleShare() {
+    await navigator.clipboard.writeText(window.location.href)
+    toast.success('Link copied to clipboard')
+  }
 
   return (
     <div
@@ -52,9 +90,25 @@ const Card = ({
       </Link>
 
       <div className="flex flex-row justify-start w-full gap-4 items-center">
-        <FiHeart size={24} />
-        <FiMessageCircle size={24} />
-        <FiShare size={24} />
+        {like && (
+          <a onClick={handleUnlike} className="cursor-pointer">
+            <FiHeart
+              size={24}
+              className="text-red-500"
+              fill="rgb(239 68 68 / var(--tw-text-opacity))"
+            />
+          </a>
+        )}
+
+        {!like && (
+          <a onClick={handleLike} className="cursor-pointer">
+            <FiHeart size={24} />
+          </a>
+        )}
+        {/* <FiMessageCircle size={24} /> */}
+        <a onClick={handleShare} className="cursor-pointer">
+          <FiShare size={24} />
+        </a>
 
         <div className="flex-1"></div>
 
