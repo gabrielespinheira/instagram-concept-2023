@@ -48,6 +48,8 @@ export const typeDefs = gql`
   type Query {
     profile: User
     post(id: UUID): Post
+    isFollower(followingId: UUID): Boolean
+    hasLike(postId: UUID): Boolean
   }
 
   type Mutation {
@@ -61,10 +63,8 @@ export const typeDefs = gql`
 
     follow(followingId: UUID): Follow
     unfollow(followingId: UUID): Boolean
-    isFollower(followingId: UUID): Boolean
 
     like(postId: UUID): Like
     unlike(postId: UUID): Boolean
-    hasLike(postId: UUID): Boolean
   }
 `

@@ -17,8 +17,8 @@ export const mutationUnlike = gql`
   }
 `
 
-export const mutationHasLike = gql`
-  mutation HasLike($postId: UUID) {
+export const queryHasLike = gql`
+  query HasLike($postId: UUID) {
     hasLike(postId: $postId)
   }
 `

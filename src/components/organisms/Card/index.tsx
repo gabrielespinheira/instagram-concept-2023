@@ -6,7 +6,7 @@ import { gql } from 'graphql-request'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { fetcher } from 'src/utils'
-import { mutationHasLike, mutationLike, mutationUnlike } from 'graphql/sdk/like'
+import { queryHasLike, mutationLike, mutationUnlike } from 'graphql/sdk/like'
 
 const queryPost = gql`
   query Post($postId: UUID) {
@@ -36,7 +36,7 @@ const Card = ({
 
   useEffect(() => {
     async function hasLike() {
-      const resp = await fetcher(mutationHasLike, {
+      const resp = await fetcher(queryHasLike, {
         postId: post.id,
       })
 

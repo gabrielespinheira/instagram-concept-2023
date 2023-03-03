@@ -7,15 +7,15 @@ export const resolvers = {
   Query: {
     profile,
     post,
+    isFollower,
+    hasLike,
   },
   Mutation: {
     register,
     login,
     follow,
     unfollow,
-    isFollower,
     like,
     unlike,
-    hasLike,
   },
 }

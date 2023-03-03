@@ -17,8 +17,8 @@ export const mutationUnfollow = gql`
   }
 `
 
-export const mutationIsFollower = gql`
-  mutation IsFollower($followingId: UUID) {
+export const queryIsFollower = gql`
+  query Query($followingId: UUID) {
     isFollower(followingId: $followingId)
   }
 `

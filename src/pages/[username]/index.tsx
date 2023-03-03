@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import {
   mutationFollow,
-  mutationIsFollower,
+  queryIsFollower,
   mutationUnfollow,
 } from 'graphql/sdk/follow'
 import { prisma } from 'prisma/db'
@@ -23,7 +23,7 @@ const Username = ({ userData, postsData }) => {
 
   useEffect(() => {
     async function isFollower() {
-      const resp = await fetcher(mutationIsFollower, {
+      const resp = await fetcher(queryIsFollower, {
         followingId: user.id,
       })
 
