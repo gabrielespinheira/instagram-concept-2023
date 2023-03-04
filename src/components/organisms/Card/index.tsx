@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { Like, Post, User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 import { FiHeart, FiShare } from 'react-icons/fi'
-import { gql } from 'graphql-request'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { fetcher } from 'src/utils'
@@ -12,20 +11,6 @@ import {
   mutationUnlike,
   queryGetLikes,
 } from 'graphql/sdk/like'
-
-const queryPost = gql`
-  query Post($postId: UUID) {
-    post(id: $postId) {
-      id
-      url
-      tags
-      text
-      updatedAt
-      userId
-      deletedAt
-    }
-  }
-`
 
 const Card = ({
   post,
@@ -80,7 +65,9 @@ const Card = ({
   }
 
   async function handleShare() {
-    await navigator.clipboard.writeText(window.location.href)
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}/${post.id}`
+    )
     toast.success('Link copied to clipboard')
   }
 
@@ -122,7 +109,6 @@ const Card = ({
             <FiHeart size={24} />
           </a>
         )}
-        {/* <FiMessageCircle size={24} /> */}
         <a onClick={handleShare} className="cursor-pointer">
           <FiShare size={24} />
         </a>

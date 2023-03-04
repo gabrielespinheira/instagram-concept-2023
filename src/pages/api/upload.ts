@@ -33,8 +33,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const user = await prisma.user.findFirst({
     where: {
-      id: userToken.sub,
-      email: userToken.email,
+      id: userToken.payload.sub,
+      email: userToken.payload.email,
     },
   })
 
@@ -56,7 +56,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   )
 
   const postId = uuidv4()
-  const photoUrl = `${user.id}/${postId}.jpeg`
+  const photoUrl = `upload/${user.id}/${postId}.jpeg`
   const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${photoUrl}`
   const optimized = await sharp(buf).jpeg({ quality: 100 }).toBuffer()
 

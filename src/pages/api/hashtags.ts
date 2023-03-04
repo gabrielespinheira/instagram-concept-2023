@@ -40,8 +40,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const user = await prisma.user.findFirst({
     where: {
-      id: userToken.sub,
-      email: userToken.email,
+      id: userToken.payload.sub,
+      email: userToken.payload.email,
     },
   })
 
@@ -64,7 +64,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       .json({ hashtags: post.tags, message: 'hashtags already exists' })
   }
 
-  const photoUrl = `${user.id}/${postId}.jpeg`
+  const photoUrl = `upload/${user.id}/${postId}.jpeg`
+
+  console.log('🔥', photoUrl)
 
   // generate hashtags with AWS Rekognition
   const rekognition = new RekognitionClient({ region: process.env.AWS_REGION })
