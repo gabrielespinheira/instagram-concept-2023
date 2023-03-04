@@ -84,7 +84,7 @@ const Username = ({ userData, postsData }) => {
   return (
     <BasicTemplate>
       <div className="bg-gray-100 text-gray-800 rounded-md flex flex-row justify-center items-center w-full gap-6 p-6 mb-12">
-        <Link href={`/${user.username}`}>
+        <Link href="/avatar">
           <img
             src={user.avatar || 'http://via.placeholder.com/100x100?text='}
             alt={user.name || ''}
