@@ -13,28 +13,39 @@ import { BasicTemplate, Card } from 'src/components'
 import { fetcher } from 'src/utils'
 import { useEffect, useState } from 'react'
 import { FiLoader } from 'react-icons/fi'
+import { queryStats } from 'graphql/sdk/stats'
 
 const Username = ({ userData, postsData }) => {
   const [session, _] = useAtom(sessionAtom)
   const [loading, setLoading] = useState<boolean>(true)
   const [follow, setFollow] = useState<boolean>(false)
+  const [stats, setStats] = useState({ posts: 0, followers: 0, following: 0 })
   const user: User = JSON.parse(userData) || {}
   const posts: Post[] = JSON.parse(postsData) || []
 
   useEffect(() => {
-    async function isFollower() {
-      const resp = await fetcher(queryIsFollower, {
-        followingId: user.id,
-      })
-
-      setLoading(false)
-      setFollow(resp.isFollower)
-    }
-
     if (loading) {
       isFollower()
+      loadStats()
     }
   }, [])
+
+  async function isFollower() {
+    const resp = await fetcher(queryIsFollower, {
+      followingId: user.id,
+    })
+
+    setLoading(false)
+    setFollow(resp.isFollower)
+  }
+
+  async function loadStats() {
+    const resp = await fetcher(queryStats, {
+      userId: user.id,
+    })
+
+    setStats(resp.stats)
+  }
 
   async function handleFollow() {
     setLoading(true)
@@ -48,6 +59,7 @@ const Username = ({ userData, postsData }) => {
     }
 
     setLoading(false)
+    loadStats()
   }
 
   async function handleUnfollow() {
@@ -62,6 +74,7 @@ const Username = ({ userData, postsData }) => {
     }
 
     setLoading(false)
+    loadStats()
   }
 
   if (!session?.user?.username) {
@@ -118,15 +131,15 @@ const Username = ({ userData, postsData }) => {
 
         <div className="flex flex-row gap-8">
           <div className="flex flex-col justify-center items-center">
-            <span className="text-3xl">12</span>
+            <span className="text-3xl">{stats.posts}</span>
             <span className="text-sm">Posts</span>
           </div>
           <div className="flex flex-col justify-center items-center">
-            <span className="text-3xl">16</span>
+            <span className="text-3xl">{stats.followers}</span>
             <span className="text-sm">Followers</span>
           </div>
           <div className="flex flex-col justify-center items-center">
-            <span className="text-3xl">25</span>
+            <span className="text-3xl">{stats.following}</span>
             <span className="text-sm">Following</span>
           </div>
         </div>

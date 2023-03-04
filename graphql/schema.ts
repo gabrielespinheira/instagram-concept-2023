@@ -16,6 +16,11 @@ export const typeDefs = gql`
     deletedAt: DateTime
   }
 
+  type Auth {
+    user: User
+    token: NonEmptyString
+  }
+
   type Post {
     id: UUID
     text: String
@@ -43,9 +48,10 @@ export const typeDefs = gql`
     createdAt: DateTime
   }
 
-  type Auth {
-    user: User
-    token: NonEmptyString
+  type Stats {
+    posts: Int
+    followers: Int
+    following: Int
   }
 
   type Query {
@@ -54,6 +60,7 @@ export const typeDefs = gql`
     isFollower(followingId: UUID): Boolean
     hasLike(postId: UUID): Boolean
     getLikes(postId: UUID): [Like]
+    stats(userId: UUID): Stats
   }
 
   type Mutation {
