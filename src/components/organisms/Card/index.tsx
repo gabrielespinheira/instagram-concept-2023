@@ -1,12 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { Post, User } from '@prisma/client'
+import { Like, Post, User } from '@prisma/client'
 import { FiHeart, FiShare } from 'react-icons/fi'
 import { gql } from 'graphql-request'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { fetcher } from 'src/utils'
-import { queryHasLike, mutationLike, mutationUnlike } from 'graphql/sdk/like'
+import {
+  queryHasLike,
+  mutationLike,
+  mutationUnlike,
+  queryGetLikes,
+} from 'graphql/sdk/like'
 
 const queryPost = gql`
   query Post($postId: UUID) {
@@ -33,6 +38,7 @@ const Card = ({
 }) => {
   const tags: string[] = (post.tags as string[]) || []
   const [like, setLike] = useState(false)
+  const [likes, setLikes] = useState([])
 
   useEffect(() => {
     async function hasLike() {
@@ -41,10 +47,19 @@ const Card = ({
       })
 
       setLike(resp.hasLike)
+      handleLikeList()
     }
 
     hasLike()
   }, [])
+
+  async function handleLikeList() {
+    const likes = await fetcher(queryGetLikes, {
+      postId: post.id,
+    })
+
+    setLikes(likes.getLikes)
+  }
 
   async function handleLike() {
     await fetcher(mutationLike, {
@@ -52,6 +67,7 @@ const Card = ({
     })
 
     setLike(true)
+    handleLikeList()
   }
 
   async function handleUnlike() {
@@ -60,6 +76,7 @@ const Card = ({
     })
 
     setLike(false)
+    handleLikeList()
   }
 
   async function handleShare() {
@@ -112,28 +129,23 @@ const Card = ({
 
         <div className="flex-1"></div>
 
-        <div className="flex flex-row">
-          <img
-            src={`http://via.placeholder.com/300x300`}
-            alt={post.text}
-            width="32px"
-            height="32px"
-            className="rounded-full border-2 border-white"
-          />
-          <img
-            src={`http://via.placeholder.com/300x300`}
-            alt={post.text}
-            width="32px"
-            height="32px"
-            className="rounded-full ml-[-8px] border-2 border-white"
-          />
-          <img
-            src={`http://via.placeholder.com/300x300`}
-            alt={post.text}
-            width="32px"
-            height="32px"
-            className="rounded-full ml-[-8px] border-2 border-white"
-          />
+        <div className="flex flex-row h-[32px]">
+          {likes.map((like: any, index) => (
+            <img
+              key={like.id}
+              src={
+                like.user.avatar
+                  ? like.user.avatar
+                  : `http://via.placeholder.com/300x300`
+              }
+              alt={like.user.username}
+              width="32px"
+              height="32px"
+              className={`rounded-full border-2 border-white ${
+                index === 0 ? '' : 'ml-[-8px]'
+              }`}
+            />
+          ))}
         </div>
       </div>
 

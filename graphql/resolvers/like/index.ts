@@ -91,4 +91,27 @@ async function hasLike(_parent, args, context: Context) {
   return false
 }
 
-export { like, unlike, hasLike }
+async function getLikes(_parent, args, context: Context) {
+  if (!context.payload) {
+    throw new Error('Unauthorized')
+  }
+
+  const { postId } = args
+
+  const likes = await context.prisma.like.findMany({
+    where: {
+      postId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 3,
+    include: {
+      user: true,
+    },
+  })
+
+  return likes
+}
+
+export { like, unlike, hasLike, getLikes }

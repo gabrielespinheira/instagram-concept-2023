@@ -10,6 +10,7 @@ export const typeDefs = gql`
     email: NonEmptyString
     name: NonEmptyString
     username: NonEmptyString
+    avatar: String
     createdAt: DateTime
     updatedAt: DateTime
     deletedAt: DateTime
@@ -36,7 +37,9 @@ export const typeDefs = gql`
   type Like {
     id: UUID
     postId: UUID
+    post: Post
     userID: UUID
+    user: User
     createdAt: DateTime
   }
 
@@ -50,6 +53,7 @@ export const typeDefs = gql`
     post(id: UUID): Post
     isFollower(followingId: UUID): Boolean
     hasLike(postId: UUID): Boolean
+    getLikes(postId: UUID): [Like]
   }
 
   type Mutation {

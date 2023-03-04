@@ -22,3 +22,15 @@ export const queryHasLike = gql`
     hasLike(postId: $postId)
   }
 `
+
+export const queryGetLikes = gql`
+  query GetLikes($postId: UUID) {
+    getLikes(postId: $postId) {
+      id
+      user {
+        username
+        avatar
+      }
+    }
+  }
+`
