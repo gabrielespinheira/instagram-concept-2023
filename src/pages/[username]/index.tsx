@@ -182,6 +182,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-// TODO: server side props - get user
-
 export default Username
