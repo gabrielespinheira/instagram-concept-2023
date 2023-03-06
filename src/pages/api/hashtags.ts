@@ -66,7 +66,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const photoUrl = `upload/${user.id}/${postId}.jpeg`
 
-  console.log('🔥', photoUrl)
+  console.log(
+    '🔥',
+    photoUrl,
+    process.env.CUSTOM_AWS_REGION,
+    process.env.CUSTOM_AWS_S3_BUCKET_NAME
+  )
 
   // generate hashtags with AWS Rekognition
   const rekognition = new RekognitionClient({
