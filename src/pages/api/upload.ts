@@ -44,9 +44,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // AWS S3 Object
   const s3 = new S3({
-    region: process.env.AWS_REGION,
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY,
+    region: process.env.CUSTOM_AWS_REGION,
+    accessKeyId: process.env.CUSTOM_AWS_ACCESS_KEY,
+    secretAccessKey: process.env.CUSTOM_AWS_SECRET_KEY,
     signatureVersion: 'v4',
   })
 
@@ -57,11 +57,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const postId = uuidv4()
   const photoUrl = `upload/${user.id}/${postId}.jpeg`
-  const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${photoUrl}`
+  const url = `https://${process.env.CUSTOM_AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${photoUrl}`
   const optimized = await sharp(buf).jpeg({ quality: 100 }).toBuffer()
 
   const data = {
-    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Bucket: process.env.CUSTOM_AWS_S3_BUCKET_NAME,
     Key: photoUrl,
     Body: optimized,
     ContentEncoding: 'base64',

@@ -69,13 +69,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('🔥', photoUrl)
 
   // generate hashtags with AWS Rekognition
-  const rekognition = new RekognitionClient({ region: process.env.AWS_REGION })
+  const rekognition = new RekognitionClient({
+    region: process.env.CUSTOM_AWS_REGION,
+  })
 
   const rekog = await rekognition.send(
     new DetectLabelsCommand({
       Image: {
         S3Object: {
-          Bucket: process.env.AWS_S3_BUCKET_NAME,
+          Bucket: process.env.CUSTOM_AWS_S3_BUCKET_NAME,
           Name: photoUrl,
         },
       },
