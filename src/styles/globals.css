@@ -6,7 +6,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* h-full */
 html, body, #__next, main {
   @apply h-auto;
 }

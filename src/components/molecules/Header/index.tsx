@@ -34,21 +34,21 @@ const Header = () => {
       <div className="flex flex-row gap-4">
         {!session?.signed && (
           <>
-            <Link
+            {/* <Link
               href=""
               target="_blank"
               className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
             >
               <SiNotion size={24} />
-            </Link>
+            </Link> */}
 
-            <Link
+            {/* <Link
               href=""
               target="_blank"
               className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
             >
               <FiFigma size={24} />
-            </Link>
+            </Link> */}
 
             <Link
               href="https://github.com/gabrielespinheira/instagram-concept-2023"

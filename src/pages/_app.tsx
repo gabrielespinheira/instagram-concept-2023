@@ -40,20 +40,20 @@ function App({ Component, pageProps }: AppProps) {
       >
         <main className={`${fontFamily.variable} font-sans`}>
           <Component {...pageProps} />
-
-          <ToastContainer
-            position="bottom-right"
-            autoClose={4000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
         </main>
+
+        <ToastContainer
+          position="bottom-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </SWRConfig>
     </>
   )
