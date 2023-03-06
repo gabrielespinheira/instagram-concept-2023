@@ -7,6 +7,7 @@ import {
   FiSearch,
   FiCompass,
   FiUploadCloud,
+  FiAirplay,
 } from 'react-icons/fi'
 import { SiNotion } from 'react-icons/si'
 
@@ -49,6 +50,13 @@ const Header = () => {
             >
               <FiFigma size={24} />
             </Link> */}
+            <Link
+              href="https://docs.google.com/presentation/d/1qSsSFcWhvPW68xaaPrSuXLe8kK3SWpYSEHdRhFxhvWY/edit?usp=sharing"
+              target="_blank"
+              className="text-gray-100/50 p-2 inline-flex items-center justify-center rounded-md text-sm hover:text-gray-100 hover:bg-gray-100/10 outline-none focus:bg-gray-100/10 focus:ring-2 focus:ring-white/20"
+            >
+              <FiAirplay size={24} />
+            </Link>
 
             <Link
               href="https://github.com/gabrielespinheira/instagram-concept-2023"
